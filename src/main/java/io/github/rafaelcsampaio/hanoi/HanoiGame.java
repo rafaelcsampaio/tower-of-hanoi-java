@@ -1,3 +1,5 @@
+package io.github.rafaelcsampaio.hanoi;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
