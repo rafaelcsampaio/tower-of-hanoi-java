@@ -1,4 +1,4 @@
-package io.github.rafaelcsampaio.hanoi;
+package io.github.rafaelcsampaio.hanoi.ui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Stack;
 
-public class HanoiGame extends JFrame {
+public class HanoiFrame extends JFrame {
 
 
     private static final int LARGURA_JANELA = 800;
@@ -43,7 +43,7 @@ public class HanoiGame extends JFrame {
     private int hasteOrigemArrasto = -1;
     private Point pontoArrasto = null; 
 
-    public HanoiGame() {
+    public HanoiFrame() {
       
         String input = JOptionPane.showInputDialog(this, "Número de discos (1 a 6):", "Novo Jogo", JOptionPane.QUESTION_MESSAGE);
         try {
@@ -244,7 +244,7 @@ public class HanoiGame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new HanoiGame().setVisible(true);
+            new HanoiFrame().setVisible(true);
         });
     }
 }
