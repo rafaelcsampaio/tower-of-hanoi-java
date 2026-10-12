@@ -398,10 +398,24 @@ The focus was not only on creating a playable puzzle, but also on practicing:
 
 ---
 
+<div align="center">
+
 ## Author
 
-**Rafael Sampaio**
+### Rafael Sampaio
 
-Software Engineering student interested in back-end development, software architecture, data and applied software engineering.
+**Software Engineering Student · Systems Development Technician**
 
-GitHub: [rafaelcsampaio](https://github.com/rafaelcsampaio)
+Back-end Development · Software Architecture · Data & Automation
+
+<a href="https://www.linkedin.com/in/rafael-sampaio-25554031a">
+  <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn">
+</a>
+<a href="https://github.com/rafaelcsampaio">
+  <img src="https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub">
+</a>
+<a href="mailto:rafael.sampaio.tech@gmail.com">
+  <img src="https://img.shields.io/badge/-Gmail-EA4335?style=flat&logo=gmail&logoColor=white" alt="Gmail">
+</a>
+
+</div>
