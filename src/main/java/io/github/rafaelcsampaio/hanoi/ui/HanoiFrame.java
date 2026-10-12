@@ -2,10 +2,10 @@ package io.github.rafaelcsampaio.hanoi.ui;
 
 import io.github.rafaelcsampaio.hanoi.game.GameStats;
 import io.github.rafaelcsampaio.hanoi.game.HanoiGame;
+import io.github.rafaelcsampaio.hanoi.ui.theme.HanoiLookAndFeel;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
@@ -20,10 +20,9 @@ public class HanoiFrame extends JFrame {
     private final GamePanel gamePanel;
     private final HeaderPanel headerPanel;
 
-    public HanoiFrame() {
-        int diskCount =
-                requestDiskCount();
-
+    public HanoiFrame(
+            int diskCount
+    ) {
         game =
                 new HanoiGame(
                         diskCount
@@ -49,7 +48,13 @@ public class HanoiFrame extends JFrame {
                 JFrame.EXIT_ON_CLOSE
         );
 
-        setLocationRelativeTo(null);
+        HanoiLookAndFeel.applyWindowStyle(
+                this
+        );
+
+        setLocationRelativeTo(
+                null
+        );
 
         getContentPane().setLayout(
                 new BorderLayout()
@@ -82,51 +87,6 @@ public class HanoiFrame extends JFrame {
         );
 
         updateStats();
-    }
-
-    private int requestDiskCount() {
-        while (true) {
-            String input =
-                    JOptionPane.showInputDialog(
-                            this,
-                            "Number of disks (1 to 6):",
-                            "New Game",
-                            JOptionPane.QUESTION_MESSAGE
-                    );
-
-            if (input == null) {
-                System.exit(0);
-            }
-
-            try {
-                int diskCount =
-                        Integer.parseInt(
-                                input.trim()
-                        );
-
-                if (
-                        diskCount >= 1
-                                && diskCount <= 6
-                ) {
-                    return diskCount;
-                }
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Choose a number of disks between 1 and 6.",
-                        "Invalid disk count",
-                        JOptionPane.WARNING_MESSAGE
-                );
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Enter an integer between 1 and 6.",
-                        "Invalid input",
-                        JOptionPane.WARNING_MESSAGE
-                );
-            }
-        }
     }
 
     private void restartGame() {
@@ -163,14 +123,6 @@ public class HanoiFrame extends JFrame {
                 message,
                 "Victory!",
                 JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(
-                () ->
-                        new HanoiFrame()
-                                .setVisible(true)
         );
     }
 }

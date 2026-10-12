@@ -10,11 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 
 import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.HEADER_BACKGROUND_COLOR;
-import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.MUTED_TEXT_COLOR;
+import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.HEADER_SUBTITLE_COLOR;
+import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.HEADER_TITLE_COLOR;
+import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.METRIC_FONT;
+import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.SUBTITLE_FONT;
 import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.TEXT_COLOR;
+import static io.github.rafaelcsampaio.hanoi.ui.theme.HanoiTheme.TITLE_FONT;
 
 public class HeaderPanel extends JPanel {
 
@@ -22,7 +25,9 @@ public class HeaderPanel extends JPanel {
     private final JLabel movesLabel;
     private final JLabel invalidMovesLabel;
 
-    public HeaderPanel(Runnable restartAction) {
+    public HeaderPanel(
+            Runnable restartAction
+    ) {
         super(
                 new BorderLayout(
                         24,
@@ -84,15 +89,11 @@ public class HeaderPanel extends JPanel {
                 );
 
         title.setForeground(
-                TEXT_COLOR
+                HEADER_TITLE_COLOR
         );
 
         title.setFont(
-                new Font(
-                        Font.SANS_SERIF,
-                        Font.BOLD,
-                        24
-                )
+                TITLE_FONT
         );
 
         JLabel subtitle =
@@ -101,24 +102,22 @@ public class HeaderPanel extends JPanel {
                 );
 
         subtitle.setForeground(
-                MUTED_TEXT_COLOR
+                HEADER_SUBTITLE_COLOR
         );
 
         subtitle.setFont(
-                new Font(
-                        Font.SANS_SERIF,
-                        Font.PLAIN,
-                        13
-                )
+                SUBTITLE_FONT
         );
 
         titlePanel.add(title);
 
         titlePanel.add(
-                Box.createVerticalStrut(3)
+                Box.createVerticalStrut(4)
         );
 
-        titlePanel.add(subtitle);
+        titlePanel.add(
+                subtitle
+        );
 
         return titlePanel;
     }
@@ -174,11 +173,7 @@ public class HeaderPanel extends JPanel {
         );
 
         label.setFont(
-                new Font(
-                        Font.SANS_SERIF,
-                        Font.BOLD,
-                        12
-                )
+                METRIC_FONT
         );
 
         return label;

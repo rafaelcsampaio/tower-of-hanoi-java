@@ -821,6 +821,9 @@ public class GamePanel extends JPanel {
             int targetTowerIndex =
                     getTowerUnderDraggedDisk();
 
+            boolean victory =
+                    false;
+
             if (
                     targetTowerIndex != -1
                             && targetTowerIndex
@@ -834,13 +837,26 @@ public class GamePanel extends JPanel {
 
                 statsChangedAction.run();
 
-                if (
-                        result
-                                == MoveResult.SUCCESS
-                                && game.isSolved()
-                ) {
-                    victoryAction.run();
-                }
+                victory =
+                        result == MoveResult.SUCCESS
+                                && game.isSolved();
+            }
+
+            clearDragState();
+
+            repaint();
+
+            if (victory) {
+                javax.swing.Timer victoryTimer =
+                        new javax.swing.Timer(
+                                180,
+                                event ->
+                                        victoryAction.run()
+                        );
+
+                victoryTimer.setRepeats(false);
+
+                victoryTimer.start();
             }
 
             clearDragState();
