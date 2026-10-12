@@ -270,57 +270,103 @@ public class HanoiFrame extends JFrame {
             return (indiceHaste + 1) * espacamento;
         }
 
-        private int getHastePelaCoordenadaX(int mouseX) {
-            int espacamento =
-                    LARGURA_JANELA
-                            / (game.getTowerCount() + 1);
+        private int getYBase() {
+            return ALTURA_JANELA - 100;
+        }
 
-            if (
-                    mouseX
-                            < espacamento
-                            + (espacamento / 2)
-            ) {
-                return 0;
+        private int getLarguraDisco(int valorDisco) {
+            return LARGURA_BASE_DISCO
+                    + (valorDisco * INCREMENTO_LARGURA);
+        }
+
+        private Rectangle getTopDiskBounds(int indiceHaste) {
+            List<Integer> tower =
+                    game.getTowerSnapshot(indiceHaste);
+
+            if (tower.isEmpty()) {
+                return null;
             }
 
-            if (
-                    mouseX
-                            < (espacamento * 2)
-                            + (espacamento / 2)
-            ) {
-                return 1;
+            int valorDisco =
+                    tower.get(tower.size() - 1);
+
+            int largura =
+                    getLarguraDisco(valorDisco);
+
+            int x =
+                    getXHaste(indiceHaste)
+                            - (largura / 2);
+
+            int y =
+                    getYBase()
+                            - (tower.size() * ALTURA_DISCO);
+
+            return new Rectangle(
+                    x,
+                    y,
+                    largura,
+                    ALTURA_DISCO
+            );
+        }
+
+        private Rectangle getTowerBounds(int indiceHaste) {
+            int larguraMaiorDisco =
+                    getLarguraDisco(game.getDiskCount());
+
+            int x =
+                    getXHaste(indiceHaste)
+                            - (larguraMaiorDisco / 2);
+
+            int y =
+                    getYBase()
+                            - ALTURA_HASTE;
+
+            return new Rectangle(
+                    x,
+                    y,
+                    larguraMaiorDisco,
+                    ALTURA_HASTE
+            );
+        }
+
+        private int getTowerAt(int mouseX, int mouseY) {
+            for (int i = 0; i < game.getTowerCount(); i++) {
+                Rectangle towerBounds =
+                        getTowerBounds(i);
+
+                if (towerBounds.contains(mouseX, mouseY)) {
+                    return i;
+                }
             }
 
-            return 2;
+            return -1;
         }
 
         private class ManipuladorMouse extends MouseAdapter {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                int hasteClicada =
-                        getHastePelaCoordenadaX(
-                                e.getX()
-                        );
+                for (int i = 0; i < game.getTowerCount(); i++) {
+                    Rectangle diskBounds =
+                            getTopDiskBounds(i);
 
-                List<Integer> tower =
-                        game.getTowerSnapshot(
-                                hasteClicada
-                        );
+                    if (
+                            diskBounds != null
+                                    && diskBounds.contains(e.getPoint())
+                    ) {
+                        List<Integer> tower =
+                                game.getTowerSnapshot(i);
 
-                if (!tower.isEmpty()) {
-                    discoArrastado =
-                            tower.get(
-                                    tower.size() - 1
-                            );
+                        discoArrastado =
+                                tower.get(tower.size() - 1);
 
-                    hasteOrigemArrasto =
-                            hasteClicada;
+                        hasteOrigemArrasto = i;
+                        pontoArrasto = e.getPoint();
 
-                    pontoArrasto =
-                            e.getPoint();
+                        repaint();
 
-                    repaint();
+                        return;
+                    }
                 }
             }
 
@@ -331,13 +377,14 @@ public class HanoiFrame extends JFrame {
                 }
 
                 int hasteDestino =
-                        getHastePelaCoordenadaX(
-                                e.getX()
+                        getTowerAt(
+                                e.getX(),
+                                e.getY()
                         );
 
                 if (
-                        hasteDestino
-                                != hasteOrigemArrasto
+                        hasteDestino != -1
+                                && hasteDestino != hasteOrigemArrasto
                 ) {
                     MoveResult result =
                             game.moveDisk(
